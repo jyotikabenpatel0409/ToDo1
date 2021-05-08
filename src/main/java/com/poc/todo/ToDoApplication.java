@@ -16,7 +16,7 @@ public class ToDoApplication {
       return "Hello World!";
    }
    
-   @RequestMapping("/test")
+   @RequestMapping("/test1")
    @ResponseBody
    String test() {
       return "Hello World Test 1!";
