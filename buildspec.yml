@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - pip install --upgrade awscli
+  pre_build:
+    commands:
+      - mvn clean
+  build:
+    commands:
+      - mvn package
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 040464216207.dkr.ecr.us-east-1.amazonaws.com
+      - docker build -t todoapp .
+      - docker tag todoapp:latest 040464216207.dkr.ecr.us-east-1.amazonaws.com/todoapp:latest
+      - docker push 040464216207.dkr.ecr.us-east-1.amazonaws.com/todoapp:latest
